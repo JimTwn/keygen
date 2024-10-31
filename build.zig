@@ -1,8 +1,17 @@
 const std = @import("std");
 
+const app_name = "keygen";
+const app_version = std.SemanticVersion{ .major = 0, .minor = 2, .patch = 0 };
+const app_vendor = "Jim Teeuwen <jimteeuwen@proton.me>";
+
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
+
+    const options = b.addOptions();
+    options.addOption([]const u8, "app_name", app_name);
+    options.addOption(std.SemanticVersion, "app_version", app_version);
+    options.addOption([]const u8, "app_vendor", app_vendor);
 
     const exe = b.addExecutable(.{
         .name = "keygen",
@@ -10,6 +19,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    exe.root_module.addOptions("build_options", options);
 
     b.installArtifact(exe);
 
