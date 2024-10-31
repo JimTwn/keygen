@@ -235,7 +235,7 @@ fn parseArgs(alloc: std.mem.Allocator) !OutputType {
     }
 
     if (size == 0) {
-        std.log.err("invalid size", .{});
+        try printUsage();
         std.process.exit(1);
     }
 
@@ -282,7 +282,7 @@ fn printUsage() !void {
     var bw = std.io.bufferedWriter(stderr.writer());
     const w = bw.writer();
 
-    try w.print("usage: {s} [options] <size>\n", .{build_options.app_name});
+    try w.print("usage: {s} [options]\n", .{build_options.app_name});
     try w.print("\nFor the raw byte output, @size refers to the number of bytes in the output.\n", .{});
 
     try w.print("\nFor the following forms, @size refers to the number of bytes before encoding is applied.\n", .{});

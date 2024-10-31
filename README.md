@@ -1,6 +1,6 @@
 ## Keygen
 
-Bubble is a message board server.
+Keygen is a commandline tool that generates cryptographically random keys in various forms.
 
 
 ### Usage
